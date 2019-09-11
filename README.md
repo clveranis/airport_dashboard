@@ -28,7 +28,7 @@ assumed that the endpoint holding the requested weather data had to come from `/
  $ bundle install
  ```
  
- Next, create and migrate the database:
+ Next, create and migrate the database (the app uses MySQL by default so be sure to have that installed/available):
  
  ```
  $ rails db:create
