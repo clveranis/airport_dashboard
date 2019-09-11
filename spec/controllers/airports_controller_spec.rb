@@ -31,5 +31,13 @@ RSpec.describe AirportsController, type: :controller do
   #     expect(response).to redirect_to(airports_path)
   #   end
   # end
+
+  describe "GET refresh_data" do
+    it "successfully responds to ajax request and loads template" do
+      get :refresh_airport_data, params: { iata_code: "BDL" }, xhr: true
+      expect(response.status).to eq(200)
+      expect(response).to render_template(:search)
+    end
+  end
   
 end

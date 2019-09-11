@@ -18,7 +18,9 @@
           <p class="card-text mb-1">Humidity: <%= blank_check_helper(airport.relative_humidity, "humidity") %></p>
         </div>
       </div>
-
+      <div class="text-right">
+        <%= link_to("Refresh Data", refresh_airport_data_path(airport.iata_code), {class: "btn btn-outline-primary btn-sm", remote: true, id: "refreshData-#{airport.iata_code}"} ) %>
+      </div>
     </div>
     <div class="card-footer text-muted">
       <small>Data current as of: <%= simple_time_helper(airport.data_time, airport.time_zone) %></small>

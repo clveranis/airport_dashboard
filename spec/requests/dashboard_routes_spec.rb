@@ -21,8 +21,10 @@ RSpec.describe "DashboardRoutes", type: :request do
     it "routes airport_update_or_create_path", :type => :routing do
       expect(put: airport_update_or_create_path).to route_to(controller: "airports", action: "update_or_create")
     end
-    
-    
+
+    it "routes refresh_airport_data_path", :type => :routing do
+      expect(get: refresh_airport_data_path("bdl")).to route_to(controller: "airports", action:"refresh_airport_data", iata_code: "bdl")
+    end
     
   end
   

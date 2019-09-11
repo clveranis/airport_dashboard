@@ -37,5 +37,13 @@ class AirportsController < ApplicationController
       }
     end
   end
+
+  def refresh_airport_data
+    respond_to do |format|
+      format.js {
+        render 'airports/search', airport_code: params[:iata_code]
+      }
+    end
+  end
   
 end

@@ -31,6 +31,22 @@ RSpec.feature "AirportDashboards", type: :feature do
       expect(page).to have_selector('div.alert')
       expect(page).to have_text('Please enter a valid airport code.')
     end
+
+    scenario "airport card has refresh link", js: true do
+      visit '/'
+      fill_in('iata_code', with: "BDL")
+      click_button 'Search'
+      expect(page).to have_selector('a#refreshData-BDL')
+    end
+
+    scenario "user refreshes airport data", js: true do
+      visit '/'
+      fill_in('iata_code', with: "BDL")
+      click_button 'Search'
+      click_link 'Refresh Data'
+      expect(page).to have_selector('div.alert')
+      expect(page).to have_text('Airport data retrieved. Please view it below.')
+    end
   end
   
 end
