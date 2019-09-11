@@ -16,13 +16,43 @@ RSpec.describe Airport, type: :model do
         data_time: "2019-09-11T01:51:00+00:00",
         show_on_dashboard: true
     }
+    @iata_params = { iata_code: "BDL" }
   end
   
   describe "airport" do
-    it "saves and creates new airport" do
+    
+    it "saves and creates new valid airport" do
       airport = Airport.create(@airport_attributes)
       expect(airport).to be_present
     end
+    
+    it "searches for existing airport and creates if not found" do
+      airport = Airport.update_or_create_by(@iata_params, @airport_attributes)
+      expect(airport).to be_present
+    end
+    
+    it "finds and updates existing airport" do
+      Airport.create(@airport_attributes)
+      @airport_attributes['description'] = "Clear"
+      airport = Airport.update_or_create_by(@iata_params, @airport_attributes)
+      expect(airport.description).to eq('Clear')
+    end
+    
+  end
+
+  describe "airport validations" do
+  
+    it "is valid with iata_code" do
+      airport = Airport.new(@airport_attributes)
+      expect(airport).to be_valid
+    end
+  
+    it "is not valid without iata_code" do
+      airport = Airport.new(@airport_attributes)
+      airport.iata_code = ""
+      expect(airport).to_not be_valid
+    end
+
   end
   
 end

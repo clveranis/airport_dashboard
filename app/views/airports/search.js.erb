@@ -1,0 +1,49 @@
+// set necessary variables for search code
+sURL = 'https://api.weather.gov/stations/K'+"<%= j params[:iata_code] %>";
+oURL = 'https://api.weather.gov/stations/K'+"<%= j params[:iata_code] %>"+'/observations/latest';
+aURL = '<%= j airport_update_or_create_path %>';
+dataObj = {}
+
+// function to build single object of airport return data
+function pushToObj(name, val) {
+  dataObj[name] = val;
+}
+
+// make ajax calls to weather api endpoints
+var stationData = $.ajax({url:sURL}),
+  observationData = $.ajax({url:oURL});
+
+// verify both api endpoints have been called
+$.when(stationData, observationData)
+// handpick only relevant data from response after successful call of both endpoints
+  .then(function(data1, data2){
+    pushToObj("iata_code", data1[0]['properties']['stationIdentifier'].slice(1));
+    pushToObj("name", data1[0]['properties']['name']);
+    pushToObj("time_zone", data1[0]['properties']['timeZone']);
+    pushToObj("long", data2[0]['geometry']['coordinates'][0]);
+    pushToObj("lat", data2[0]['geometry']['coordinates'][1]);
+    pushToObj("data_time", data2[0]['properties']['timestamp']);
+    pushToObj("description", data2[0]['properties']['textDescription']);
+    pushToObj("temperature", data2[0]['properties']['temperature']['value']);
+    pushToObj("wind_direction", data2[0]['properties']['windDirection']['value']);
+    pushToObj("wind_speed", data2[0]['properties']['windSpeed']['value']);
+    pushToObj("relative_humidity", data2[0]['properties']['relativeHumidity']['value']);
+    pushToObj("show_on_dashboard", true);
+  })
+  // send data object as JSON to rails controller create action
+  .done(function(){
+    $.ajax({
+      url: aURL,
+      data: { ap_params: JSON.stringify(dataObj) },
+      method: 'PUT',
+      dataType: 'script',
+      headers: {
+        'X-CSRF-TOKEN': '<%= form_authenticity_token.to_s %>'
+      }
+
+    });
+  })
+  //   if process fails at any point, return a basic alert error
+  .fail(function(){
+    $('#flashWrap').html('<%= j render "layouts/notification", flash: { danger: 'Please enter a valid airport code.' } %>');
+  });

@@ -22,4 +22,14 @@ RSpec.describe AirportsController, type: :controller do
       expect(response).to render_template(:search)
     end
   end
+  
+  # describe "PUT update_or_create" do
+  #   it "successfully PUT and redirects" do
+  #     params = { ap_params: { iata_code: "BDL" } }
+  #     put :update_or_create, { params: params.to_json, xhr: true }
+  #     expect(response.status).to eq(302)
+  #     expect(response).to redirect_to(airports_path)
+  #   end
+  # end
+  
 end

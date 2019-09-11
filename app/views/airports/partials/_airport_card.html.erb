@@ -1,0 +1,27 @@
+<div class="col-sm-12 col-lg-6 mb-4" id="airportCard-<%= "#{airport.iata_code}" %>">
+  <div class="card">
+    <h5 class="card-header bg-primary text-white"><%= "#{airport.name} (#{airport.iata_code})" %></h5>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <p class="card-text mb-1"><%= airport.description %></p>
+          <hr class="my-0">
+          <h1 class="card-title my-1"><%= blank_check_helper(airport.temperature, "temp") %></h1>
+          <hr class="my-0">
+          <p class="card-text mt-1 mb-0"><%= blank_check_helper(airport.time_zone, "local_time") %></p>
+          <p class="card-text mt-0"><%= blank_check_helper(airport.time_zone, "time_zone") %></p>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <p class="card-text mb-1">Coordinates: <%= "#{blank_check_helper(airport.long, "long")} #{blank_check_helper(airport.lat, "lat")}" %></p>
+          <p class="card-text mb-1">Wind Speed: <%= blank_check_helper(airport.wind_speed, "wind_speed") %></p>
+          <p class="card-text mb-1">Wind Direction: <%= blank_check_helper(airport.wind_direction, "wind_dir") %></p>
+          <p class="card-text mb-1">Humidity: <%= blank_check_helper(airport.relative_humidity, "humidity") %></p>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer text-muted">
+      <small>Data current as of: <%= simple_time_helper(airport.data_time, airport.time_zone) %></small>
+    </div>
+  </div>
+</div>

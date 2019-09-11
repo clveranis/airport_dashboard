@@ -1,0 +1,5 @@
+<div class="row">
+  <% @airports.each do |airport| %>
+    <%= render 'airports/partials/airport_card', airport: airport %>
+  <% end %>
+</div>
