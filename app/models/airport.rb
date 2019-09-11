@@ -6,6 +6,9 @@ class Airport < ApplicationRecord
     obj.update(attributes)
     return obj
   end
-  
+
+  def remove_from_dashboard
+    self.show_on_dashboard = false
+  end
   
 end

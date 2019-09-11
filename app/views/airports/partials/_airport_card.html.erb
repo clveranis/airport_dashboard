@@ -19,7 +19,10 @@
         </div>
       </div>
       <div class="text-right">
-        <%= link_to("Refresh Data", refresh_airport_data_path(airport.iata_code), {class: "btn btn-outline-primary btn-sm", remote: true, id: "refreshData-#{airport.iata_code}"} ) %>
+        <div class="btn-group mt-2" role="group">
+          <%= link_to("Refresh Data", refresh_airport_data_path(airport.iata_code), {class: "btn btn-outline-primary btn-sm", remote: true, id: "refreshData-#{airport.iata_code}"} ) %>
+          <%= link_to("Remove", dashboard_remove_path(airport.id), {class: "btn btn-outline-danger btn-sm", remote: true, id: "remove-#{airport.iata_code}"} ) %>
+        </div>
       </div>
     </div>
     <div class="card-footer text-muted">

@@ -37,6 +37,12 @@ RSpec.describe Airport, type: :model do
       airport = Airport.update_or_create_by(@iata_params, @airport_attributes)
       expect(airport.description).to eq('Clear')
     end
+
+    it "sets show_on_dashboard to false" do
+      airport = Airport.new(@airport_attributes)
+      airport.remove_from_dashboard
+      expect(airport.show_on_dashboard).to be_falsey
+    end
     
   end
 

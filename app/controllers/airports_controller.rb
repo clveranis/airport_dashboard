@@ -45,5 +45,26 @@ class AirportsController < ApplicationController
       }
     end
   end
-  
+
+  def dashboard_remove
+    @airport = Airport.find(params[:id])
+    @airport.remove_from_dashboard
+    respond_to do |format|
+      format.js {
+        if @airport.save
+          flash[:success] = "Airport removed from dashboard."
+          redirect_to airports_path
+        else
+          flash[:danger] = "Unable to remove airport. Please try again or contact support."
+          redirect_to airports_path
+        end
+      }
+    end
+  end
+
+  private
+
+  def airport_params
+    params.require(:airport).permit(:name, :iata_code, :description, :temperature, :relative_humidity, :wind_speed, :wind_direction, :time_zone, :show_on_dashboard)
+  end
 end

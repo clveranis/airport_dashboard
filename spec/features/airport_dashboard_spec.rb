@@ -32,11 +32,12 @@ RSpec.feature "AirportDashboards", type: :feature do
       expect(page).to have_text('Please enter a valid airport code.')
     end
 
-    scenario "airport card has refresh link", js: true do
+    scenario "airport card has refresh and remove links", js: true do
       visit '/'
       fill_in('iata_code', with: "BDL")
       click_button 'Search'
       expect(page).to have_selector('a#refreshData-BDL')
+      expect(page).to have_selector('a#remove-BDL')
     end
 
     scenario "user refreshes airport data", js: true do
@@ -46,6 +47,16 @@ RSpec.feature "AirportDashboards", type: :feature do
       click_link 'Refresh Data'
       expect(page).to have_selector('div.alert')
       expect(page).to have_text('Airport data retrieved. Please view it below.')
+    end
+
+    scenario "user removes airport from dashboard", js: true do
+      visit '/'
+      fill_in('iata_code', with: "BDL")
+      click_button 'Search'
+      click_link 'Remove'
+      expect(page).to have_selector('div.alert')
+      expect(page).to have_text('Airport removed from dashboard.')
+      expect(page).to_not have_selector('div#airportCard-BDL')
     end
   end
   

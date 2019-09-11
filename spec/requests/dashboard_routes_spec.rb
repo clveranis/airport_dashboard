@@ -25,7 +25,10 @@ RSpec.describe "DashboardRoutes", type: :request do
     it "routes refresh_airport_data_path", :type => :routing do
       expect(get: refresh_airport_data_path("bdl")).to route_to(controller: "airports", action:"refresh_airport_data", iata_code: "bdl")
     end
-    
+
+    it "routes dashboard_remove_path", :type => :routing do
+      expect(get: dashboard_remove_path("1")).to route_to(controller: "airports", action: "dashboard_remove", id: "1")
+    end
   end
   
 end
