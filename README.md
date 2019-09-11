@@ -1,24 +1,46 @@
-# README
+# Airport Dashboard
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Technical Description
 
-Things you may want to cover:
+### Non-Technical Description
 
-* Ruby version
+# Setup
+ To get started with the app, clone the repo and then install the needed gems:
+ 
+ ```
+ $ bundle install
+ ```
+ 
+ Next, create and migrate the database:
+ 
+ ```
+ $ rails db:create
+ $ rails db:migrate
+ ```
+ 
+ This app uses Rspec/Capybara for testing so to verify that everything is working correctly run:
+ 
+ ```
+ $ bundle exec rspec
+ ```
+ 
+ If the test suite passes, you'll be ready to run the app in a local server:
+ 
+ ```
+ $ rails server
+ ```
 
-* System dependencies
+# Misc. Notes
 
-* Configuration
+The default database login contained within `database.yml` uses an environmental variable as follows:
+```
+user: root
+password: <%= ENV['RAILS_DB'] %>
+```
+Please add this variable to the environment running this app or adjust the `database.yml` file accordingly.
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+If you feel that you need to create a production database, please run:
+```
+$ RAILS_ENV=production rails db:create
+``` 
