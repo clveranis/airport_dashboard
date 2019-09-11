@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AirportDashboard</title>
+    <title>Airport Dashboard</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div>
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+          <%= form_with(url: airport_search_path, method: 'get', html: { style: 'width: 100%', id: 'airport_search_form'} , remote: true) do %>
+            <div class="input-group">
+              <input class="form-control" type="search" placeholder="Airport Search" aria-label="Search" name="iata_code">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
